@@ -1,1 +1,7 @@
-backendServer/node_modules
+*~
+*.swp
+*.swo
+tags
+.comet/
+memo.rb
+

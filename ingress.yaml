@@ -30,7 +30,7 @@ spec:
               serviceName: service-three
               servicePort: 80
           - pathType: Prefix
-            path: /
+            path: /(.*)
             backend:
               serviceName: service-one
               servicePort: 80
