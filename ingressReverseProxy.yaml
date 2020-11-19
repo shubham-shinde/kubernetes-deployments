@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-server-proxy
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/upstream-vhost: "gocomet.com"
+spec:
+  rules:
+    - host: 'shubham.info'
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              serviceName: gocomet-service
+              servicePort: 80

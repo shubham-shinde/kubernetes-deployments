@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-two
+  labels:
+    app: server-two-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-two-prod
+  template:
+    metadata:
+      labels:
+        app: server-two-prod
+    spec:
+      containers:
+        - name: server-two-prod
+          image: shubham3344/backend_server
+          env:
+            - name: SERVER
+              value: 'two'
+            - name: SERVER_ENV
+              value: 'production'
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-two
+spec:
+  selector:
+    app: server-two-prod
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+
+

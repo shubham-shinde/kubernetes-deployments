@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-host
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: 'shubham.tech'
+      http:
+        paths:
+          - pathType: Prefix
+            path: /staging/service1(/|$)(.*)
+            backend:
+              serviceName: service-one-staging
+              servicePort: 80
+          - pathType: Prefix
+            path: /service1(/|$)(.*)
+            backend:
+              serviceName: service-one
+              servicePort: 80
+          - pathType: Prefix
+            path: /service2(/|$)(.*)
+            backend:
+              serviceName: service-two
+              servicePort: 80
+          - pathType: Prefix
+            path: /service3(/|$)(.*)
+            backend:
+              serviceName: service-three
+              servicePort: 80
+          - pathType: Prefix
+            path: /
+            backend:
+              serviceName: service-one
+              servicePort: 80

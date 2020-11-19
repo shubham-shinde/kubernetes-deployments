@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-one
+  labels:
+    app: server-one-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-one-prod
+  template:
+    metadata:
+      labels:
+        app: server-one-prod
+    spec:
+      containers:
+        - name: server-one-prod
+          image: shubham3344/backend_server
+          imagePullPolicy: Always
+          env:
+            - name: SERVER
+              value: 'one'
+            - name: SERVER_ENV
+              value: 'production'
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-one
+spec:
+  selector:
+    app: server-one-prod
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+
+
